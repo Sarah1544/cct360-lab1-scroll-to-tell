@@ -1,0 +1,226 @@
+/* ==========================================================
+   CCT360 Lab 1: Scroll to Tell
+   Layout: full-height "scene" sections with layered parallax,
+   separated by "chapter" text sections that reveal on scroll.
+   ========================================================== */
+
+:root {
+    --ink: #1c1a17;
+    --paper: #f6f1e8;
+    --accent: #d9822b;
+    --scene-height: 100vh;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+    margin: 0;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: var(--ink);
+    background: var(--paper);
+    line-height: 1.6;
+}
+
+/* ---------- scroll progress bar (width set by JS) ---------- */
+.progress {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 4px;
+    width: 0%;
+    background: var(--accent);
+    z-index: 100;
+    transition: width 0.1s linear;
+}
+
+/* ---------- scenes: the layered parallax sections ---------- */
+.scene {
+    position: relative;          /* children are positioned relative to this */
+    height: var(--scene-height);
+    overflow: hidden;            /* hides the parts of layers that move outside */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.layer {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    will-change: transform;      /* hint to the browser: transform will animate */
+}
+
+/* mountains sit at the bottom of the scene, stacked far -> near */
+.mountains { bottom: -2px; height: 45%; }
+.mountains.far  { z-index: 1; }
+.mountains.mid  { z-index: 2; }
+.mountains.near { z-index: 3; }
+
+/* each scene has its own sky (gradient) and mountain colours */
+.scene-dawn    { background: linear-gradient(#2b2d5e 0%, #b56a7a 55%, #f4b183 100%); }
+.scene-dawn .far  polygon { fill: #6d5c86; }
+.scene-dawn .mid  polygon { fill: #4b4470; }
+.scene-dawn .near polygon { fill: #2e2a4a; }
+
+.scene-morning { background: linear-gradient(#5aa9e6 0%, #bfe1ff 100%); }
+.scene-morning .mid polygon { fill: #3f7d5b; }
+
+.scene-evening { background: linear-gradient(#3c2f63 0%, #d96c4f 60%, #f6c667 100%); }
+.scene-evening .far  polygon { fill: #7a4f63; }
+.scene-evening .near polygon { fill: #3a2740; }
+
+.scene-night   { background: linear-gradient(#050816 0%, #0f1b3d 100%); }
+.scene-night .far  polygon { fill: #1a2649; }
+.scene-night .near polygon { fill: #090d1e; }
+
+/* sun and moon are circles made with CSS only */
+.sun {
+    width: 140px;
+    height: 140px;
+    left: 60%;
+    top: 22%;
+    border-radius: 50%;
+    background: #ffd166;
+    box-shadow: 0 0 60px 20px rgba(255, 209, 102, 0.55);
+}
+.sun-low {
+    top: 45%;
+    left: 20%;
+    background: #ff9f43;
+    box-shadow: 0 0 80px 30px rgba(255, 159, 67, 0.5);
+}
+.moon {
+    width: 90px;
+    height: 90px;
+    left: 70%;
+    top: 15%;
+    border-radius: 50%;
+    background: #f1f3f8;
+    box-shadow: 0 0 40px 10px rgba(241, 243, 248, 0.35);
+}
+
+/* stars: a repeating radial gradient, no image file needed */
+.stars {
+    top: 0;
+    height: 100%;
+    background-image:
+        radial-gradient(1.5px 1.5px at 20px 30px, #fff, transparent),
+        radial-gradient(1px 1px at 90px 80px, #fff, transparent),
+        radial-gradient(1.5px 1.5px at 160px 20px, #fff, transparent),
+        radial-gradient(1px 1px at 230px 120px, #fff, transparent),
+        radial-gradient(2px 2px at 300px 60px, #fff, transparent),
+        radial-gradient(1px 1px at 360px 140px, #fff, transparent);
+    background-size: 400px 200px;
+    opacity: 0.8;
+}
+
+/* clouds: rounded rectangles with a soft shadow */
+.cloud {
+    width: 220px;
+    height: 60px;
+    border-radius: 60px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 40px -20px 0 10px rgba(255, 255, 255, 0.9);
+}
+.cloud-1 { top: 18%; left: 8%; }
+.cloud-2 { top: 30%; left: 55%; width: 300px; }
+.cloud-3 { top: 12%; left: 75%; width: 160px; }
+
+/* text sitting on top of a scene */
+.hero-text, .end-text, .scene-caption {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: #fff;
+    padding: 0 24px;
+    max-width: 720px;
+}
+.hero-text h1 {
+    font-size: clamp(2.4rem, 7vw, 5rem);
+    margin: 0 0 0.3em;
+    letter-spacing: -0.02em;
+}
+.hero-text p, .end-text p { font-size: 1.25rem; opacity: 0.9; }
+.end-text h2 { font-size: clamp(1.8rem, 5vw, 3rem); margin: 0 0 0.3em; }
+
+.scene-caption p {
+    font-size: clamp(1.2rem, 3vw, 1.8rem);
+    font-style: italic;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.4);
+}
+
+.hint {
+    display: inline-block;
+    margin-top: 1.5rem;
+    color: #fff;
+    text-decoration: none;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    padding: 8px 18px;
+    border-radius: 999px;
+    transition: background 0.3s, transform 0.3s;
+}
+.hint:hover { background: rgba(255, 255, 255, 0.15); transform: translateY(4px); }
+
+/* ---------- chapters: the text between scenes ---------- */
+.chapter {
+    padding: 18vh 24px;
+    display: flex;
+    justify-content: center;
+}
+.card {
+    max-width: 640px;
+    background: #fff;
+    padding: 40px 44px;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(28, 26, 23, 0.08);
+}
+.card .time {
+    color: var(--accent);
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+}
+.card h2 { margin: 0.2em 0 0.4em; font-size: 2rem; }
+.card p { margin: 0; font-size: 1.1rem; }
+
+/* ---------- progressive reveal ----------
+   Elements start hidden + moved. JS adds .visible when they
+   enter the viewport and the transition animates them in. */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.from-left  { transform: translateX(-60px); }
+.reveal.from-right { transform: translateX(60px); }
+.reveal.scale-in   { transform: scale(0.85); }
+.reveal.delay-1 { transition-delay: 0.2s; }
+.reveal.delay-2 { transition-delay: 0.4s; }
+
+.reveal.visible {
+    opacity: 1;
+    transform: none;
+}
+
+footer {
+    text-align: center;
+    padding: 24px;
+    font-size: 0.85rem;
+    color: #6b665e;
+}
+
+/* users who prefer less motion get a static page */
+@media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .layer { transform: none !important; }
+    html { scroll-behavior: auto; }
+}
+
+@media (max-width: 600px) {
+    .card { padding: 28px 24px; }
+    .sun { width: 90px; height: 90px; }
+    .cloud-2 { width: 200px; }
+}
