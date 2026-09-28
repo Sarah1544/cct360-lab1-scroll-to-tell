@@ -4,112 +4,69 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>One Day on the Trail</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 </head>
 <body>
 
-    <!-- Thin bar at the top that fills as you scroll (updated by JS) -->
-    <div class="progress" id="progress"></div>
-
-    <!-- ========== SCENE 1: DAWN (hero) ========== -->
-    <!-- Every .layer moves at a different speed on scroll = parallax.
-         data-speed is read by js/script.js: 1 = moves with the page (near),
-         0 = pinned to the window (far). -->
-    <section class="scene scene-dawn" id="top">
-        <div class="layer sun" data-speed="0.15"></div>
-
-        <svg class="layer mountains far" data-speed="0.3" viewBox="0 0 1440 400" preserveAspectRatio="none">
-            <polygon points="0,400 0,260 180,140 320,220 480,90 640,200 800,120 960,230 1120,110 1280,210 1440,150 1440,400"/>
-        </svg>
-        <svg class="layer mountains mid" data-speed="0.5" viewBox="0 0 1440 400" preserveAspectRatio="none">
-            <polygon points="0,400 0,300 160,210 300,280 460,170 620,270 780,190 940,290 1100,200 1260,280 1440,220 1440,400"/>
-        </svg>
-        <svg class="layer mountains near" data-speed="0.8" viewBox="0 0 1440 400" preserveAspectRatio="none">
-            <polygon points="0,400 0,340 200,280 380,330 560,260 740,330 920,270 1100,340 1280,290 1440,330 1440,400"/>
-        </svg>
-
-        <div class="hero-text">
-            <h1 class="reveal">One Day on the Trail</h1>
-            <p class="reveal delay-1">A story told by scrolling.</p>
-            <a href="#chapter-1" class="hint reveal delay-2">scroll &darr;</a>
+    <!-- Section 1: dawn. The background image is fixed to the window,
+         so the text scrolls over it = parallax (class 2, slides 65-72) -->
+    <div class="section-1 parallax">
+        <div class="caption">
+            <span class="caption-text">One Day on the Trail</span>
+            <span class="caption-sub">A story told by scrolling</span>
         </div>
-    </section>
+    </div>
 
-    <!-- ========== CHAPTER 1 ========== -->
-    <section class="chapter" id="chapter-1">
-        <div class="card reveal from-left">
-            <span class="time">6:10 am</span>
-            <h2>The start</h2>
-            <p>The trailhead is empty. Frost sits on the sign and the air smells of pine. Every step forward moves the mountains a little, and the sun climbs with you.</p>
+    <div class="section-text">
+        <span class="time">6:10 am</span>
+        <h2>The start</h2>
+        <p>The trailhead is empty. Frost sits on the sign and the air smells of pine.
+        Every step forward moves the mountains a little, and the sun climbs with you.</p>
+    </div>
+
+    <!-- Section 2: morning -->
+    <div class="section-2 parallax">
+        <div class="card">
+            <h2>Above the treeline</h2>
+            <p>The clouds move faster than you do.</p>
         </div>
-    </section>
+    </div>
 
-    <!-- ========== SCENE 2: MORNING ========== -->
-    <section class="scene scene-morning">
-        <div class="layer cloud cloud-1" data-speed="0.2"></div>
-        <div class="layer cloud cloud-2" data-speed="0.35"></div>
-        <div class="layer cloud cloud-3" data-speed="0.25"></div>
-        <svg class="layer mountains mid" data-speed="0.5" viewBox="0 0 1440 400" preserveAspectRatio="none">
-            <polygon points="0,400 0,280 220,180 400,260 600,150 780,250 980,170 1160,260 1320,200 1440,240 1440,400"/>
-        </svg>
-        <div class="scene-caption reveal scale-in">
-            <p>Above the treeline the clouds move faster than you do.</p>
-        </div>
-    </section>
+    <div class="section-text">
+        <span class="time">12:40 pm</span>
+        <h2>The ridge</h2>
+        <p>Lunch on a flat rock. Below, the valley you crossed this morning looks like
+        a map of itself. You realise the hard part is already behind you.</p>
+    </div>
 
-    <!-- ========== CHAPTER 2 ========== -->
-    <section class="chapter">
-        <div class="card reveal from-right">
-            <span class="time">12:40 pm</span>
-            <h2>The ridge</h2>
-            <p>Lunch on a flat rock. Below, the valley you crossed this morning looks like a map of itself. You realise the hard part is already behind you.</p>
-        </div>
-    </section>
-
-    <!-- ========== SCENE 3: GOLDEN HOUR ========== -->
-    <section class="scene scene-evening">
-        <div class="layer sun sun-low" data-speed="0.1"></div>
-        <svg class="layer mountains far" data-speed="0.3" viewBox="0 0 1440 400" preserveAspectRatio="none">
-            <polygon points="0,400 0,240 200,160 360,230 540,120 700,220 880,140 1060,240 1240,170 1440,230 1440,400"/>
-        </svg>
-        <svg class="layer mountains near" data-speed="0.75" viewBox="0 0 1440 400" preserveAspectRatio="none">
-            <polygon points="0,400 0,330 180,290 360,340 540,280 720,340 900,290 1080,340 1260,300 1440,330 1440,400"/>
-        </svg>
-        <div class="scene-caption reveal scale-in">
+    <!-- Section 3: golden hour -->
+    <div class="section-3 parallax">
+        <div class="card">
+            <h2>Golden hour</h2>
             <p>The light turns gold and every shadow gets longer.</p>
         </div>
-    </section>
+    </div>
 
-    <!-- ========== CHAPTER 3 ========== -->
-    <section class="chapter">
-        <div class="card reveal from-left">
-            <span class="time">7:55 pm</span>
-            <h2>The descent</h2>
-            <p>Knees complain. Headlamp on. The path you could not see this morning is now the only thing you can see, one small circle of light at a time.</p>
+    <div class="section-text">
+        <span class="time">7:55 pm</span>
+        <h2>The descent</h2>
+        <p>Knees complain. Headlamp on. The path you could not see this morning is now
+        the only thing you can see, one small circle of light at a time.</p>
+    </div>
+
+    <!-- Section 4: night -->
+    <div class="section-4 parallax">
+        <div class="caption">
+            <span class="caption-text">Back at the trailhead.</span>
+            <span class="caption-sub">Same sign, same frost, different you.</span>
+            <a href="#" class="button">Back to the top</a>
         </div>
-    </section>
+    </div>
 
-    <!-- ========== SCENE 4: NIGHT ========== -->
-    <section class="scene scene-night">
-        <div class="layer stars" data-speed="0.1"></div>
-        <div class="layer moon" data-speed="0.2"></div>
-        <svg class="layer mountains far" data-speed="0.35" viewBox="0 0 1440 400" preserveAspectRatio="none">
-            <polygon points="0,400 0,260 180,170 340,240 520,130 700,230 880,150 1060,250 1240,180 1440,240 1440,400"/>
-        </svg>
-        <svg class="layer mountains near" data-speed="0.7" viewBox="0 0 1440 400" preserveAspectRatio="none">
-            <polygon points="0,400 0,340 200,300 400,350 600,290 800,350 1000,300 1200,350 1440,310 1440,400"/>
-        </svg>
-        <div class="end-text">
-            <h2 class="reveal">Back at the trailhead.</h2>
-            <p class="reveal delay-1">Same sign, same frost, different you.</p>
-            <a href="#top" class="hint reveal delay-2">back to the top &uarr;</a>
-        </div>
-    </section>
+    <div class="section-text small">
+        <p>CCT360 Lab 1: Scroll to Tell. HTML and CSS only. All four background images are
+        original artwork made by the author.</p>
+    </div>
 
-    <footer>
-        <p>CCT360 Lab 1: Scroll to Tell. Built with HTML, CSS and vanilla JavaScript. All artwork is CSS and inline SVG.</p>
-    </footer>
-
-    <script src="js/script.js"></script>
 </body>
 </html>
