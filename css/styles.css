@@ -10,7 +10,6 @@ html, body {
     color: #444;
     background: #faf7f4;
     line-height: 1.6;
-    scroll-behavior: smooth;
 }
 
 /* ---- the four background images, one per section ---- */
@@ -58,7 +57,6 @@ html, body {
     margin-top: 16px;
     color: white;
     font-size: 20px;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
 }
 
 /* ---- translucent card sitting on a scene (from the class demo) ---- */
@@ -98,8 +96,6 @@ html, body {
 .section-text .time {
     color: #d9822b;
     font-weight: bold;
-    letter-spacing: 2px;
-    text-transform: uppercase;
     font-size: 13px;
 }
 
