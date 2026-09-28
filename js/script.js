@@ -18,23 +18,25 @@ function onScroll() {
     progressBar.style.width = percent + "%";
 
     // -- parallax --
-    // For each scene, work out how far the scene is from the middle of the
-    // screen, then move each layer by a fraction of that (its data-speed).
-    // A layer with speed 0.8 nearly follows the page (feels close);
-    // speed 0.1 barely moves (feels far away).
+    // For each scene, measure how far its top is from the top of the window.
+    // Normally every layer scrolls with the page (speed 1). To make a layer
+    // scroll SLOWER we push it back down by part of that distance.
+    //   speed 1   = moves with the page (closest, e.g. near mountains)
+    //   speed 0.5 = moves at half the page speed
+    //   speed 0   = pinned to the window (furthest away, e.g. stars)
+    // Because the layers move at different speeds they slide past each
+    // other, which is the parallax illusion of depth.
     scenes.forEach(function (scene) {
         const rect = scene.getBoundingClientRect();
-        // distance of the scene's top from the viewport top, in px
-        const offset = rect.top;
+        const offset = rect.top; // px from window top; negative once scrolled past
 
         // only bother while the scene is on or near the screen
         if (rect.bottom < 0 || rect.top > window.innerHeight) return;
 
         scene.querySelectorAll(".layer").forEach(function (layer) {
-            const speed = parseFloat(layer.dataset.speed) || 0;
-            // negative offset (scene scrolling up) -> layer shifts down a bit,
-            // so the layers slide against each other
-            layer.style.transform = "translateY(" + (-offset * speed) + "px)";
+            const speed = parseFloat(layer.dataset.speed);
+            const shift = -offset * (1 - speed);
+            layer.style.transform = "translateY(" + shift + "px)";
         });
     });
 }

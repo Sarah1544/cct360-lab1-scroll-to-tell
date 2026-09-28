@@ -79,8 +79,8 @@ body {
 .sun {
     width: 140px;
     height: 140px;
-    left: 60%;
-    top: 22%;
+    left: 76%;
+    top: 12%;
     border-radius: 50%;
     background: #ffd166;
     box-shadow: 0 0 60px 20px rgba(255, 209, 102, 0.55);
@@ -94,8 +94,8 @@ body {
 .moon {
     width: 90px;
     height: 90px;
-    left: 70%;
-    top: 15%;
+    left: 82%;
+    top: 12%;
     border-radius: 50%;
     background: #f1f3f8;
     box-shadow: 0 0 40px 10px rgba(241, 243, 248, 0.35);
