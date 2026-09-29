@@ -1,15 +1,12 @@
-# One Day in New York — CCT360 Lab 1: Scroll to Tell
+This is a single-page website that tells the story of a day trip in NYC through scrolling. Using parallax effects, motion, or progressive reveal to guide the user's experience.
 
-A single-page website that tells the story of a day trip in New York City through scrolling, built with HTML and CSS only.
+4 landscape pictures taking you throughout the day set to "background-attachment:fixed" which is then separated by a normal text section. I implemented the scroll from class 2.
 
-**How it works**
-- Four full-height sections, each with its own background image set to `background-attachment: fixed`, separated by normal text sections. Because the images stay pinned while the text scrolls over them, the layers appear to move at different speeds (class 2, slides 65–72).
-- Captions are positioned absolutely inside each `position: relative` section; cards are centred with flexbox.
-- CSS transitions animate the cards and the button on hover.
+The captions are positioned inside each "position:releative" section and cards are centered with the flexbox
 
-**Files**
-- `index.html` — page structure
-- `css/styles.css` — all styling
-- `images/image-01.jpg` … `image-04.jpg` — background photographs taken by the author
+I used CSS transitions to animate the cards and button on hover
 
-Layout pattern adapted from the CCT360 class 2 parallax demo by Nimrah Syed.
+Files Included:
+- Index.html
+- Styles.css
+- images
